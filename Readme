@@ -1,0 +1,12 @@
+This project will be comprised of 
+1.taking input media file from user either of following way 
+    a. as CLI input
+    b. as input from Rest API
+
+2. breaking input file to multiple ts file chunks and generating m3u8.index for video with ffmpeg command
+    a. creation for different qualities 360,480,720 should be configurable
+    
+3. implementing streaming endpoint 
+advance topics
+4. enhanching for adaptive bitrate(change qualties looking at bandwidth of client)
+5. Autocleanup of videos and its frames periodically 
