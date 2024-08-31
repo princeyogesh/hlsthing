@@ -10,3 +10,7 @@ This project will be comprised of
 advance topics
 4. enhanching for adaptive bitrate(change qualties looking at bandwidth of client)
 5. Autocleanup of videos and its frames periodically 
+
+
+Date 31st August:-
+Traefik detects all the services like minio, redis
