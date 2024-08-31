@@ -1,0 +1,59 @@
+version: "3.3"
+
+services:
+  hlsthings:
+    container_name: hlsthings
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - './assets:/home/app/assets'
+
+  redis:
+    image: redis:alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.redis_container.rule=Host(`redis_container.com`)"
+
+  traefik:
+    image: "traefik:v3.1"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+
+  minio:
+    image: 'bitnami/minio:latest'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ROOT_USER=minio-root-user
+      - MINIO_ROOT_PASSWORD=minio-root-password
+    labels:
+      - "traefik.enable=true"
+  
+
+
+
+
+  
+  #myapp:
+  #  image: 'YOUR_APPLICATION_IMAGE'
+    
+  #  environment:
+  #    - MINIO_SERVER_ACCESS_KEY=minio-access-key
+  #    - MINIO_SERVER_SECRET_KEY=minio-secret-key
